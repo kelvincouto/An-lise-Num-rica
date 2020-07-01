@@ -1,0 +1,202 @@
+#include<locale.h> // Para colocar acentuação
+#include <conio.h>
+#include<math.h>
+#include <stdlib.h> // Necessário para gerar números aleatórios
+#include <time.h>  // Necessário para gerar números aleatórios
+int main()
+{
+    int i, j,k, ORDEM, n, codigoAcao;
+
+    setlocale(LC_ALL, "portuguese"); // Para colocar acentuação.
+    system("color E5"); // Apenas para estética. Deixa o fundo amarelo "E". e a letra roxa "5".
+
+
+    do{
+        float *DiagPrincipalA, *SubDiagoalA, *VetorL, *VetorD, *B, *U, *V, *X; // Aqui fazemos a declaração dos ponteiros para a alocação dinâmica dos vetores.
+        printf("\n Digite a ordem da matriz A: \n\n \t");
+        scanf("%d", &ORDEM);
+
+        n=ORDEM;
+        DiagPrincipalA=(float*)(malloc(ORDEM*sizeof(float))); // Alocação dinâmica do vetor DiagPrinipipalA
+
+        if(DiagPrincipalA == NULL){
+            printf(" \n Erro de alocação de memória. \n");
+            system("pause");
+            exit(1);
+        }
+
+        SubDiagoalA=(float*)(malloc((ORDEM-1)*sizeof(float)));
+
+        if(SubDiagoalA == NULL){
+            printf(" \n Erro de alocação de memória. \n");
+            system("pause");
+            exit(1);
+        }
+
+        VetorL=(float*)(malloc((n-1)*sizeof(float)));
+
+        if(VetorL == NULL){
+            printf(" \n Erro de alocação de memória. \n");
+            system("pause");
+            exit(1);
+        }
+
+        VetorD=(float*)(malloc((n)*sizeof(float)));
+
+        if(VetorD == NULL){
+            printf(" \n Erro de alocação de memória. \n");
+            system("pause");
+            exit(1);
+        }
+
+        B=(float*)(malloc((n)*sizeof(float)));
+
+        if(B == NULL){
+            printf(" \n Erro de alocação de memória. \n");
+            system("pause");
+            exit(1);
+        }
+
+        U=(float*)(malloc((n)*sizeof(float)));
+
+        if(U == NULL){
+            printf(" \n Erro de alocação de memória. \n");
+            system("pause");
+            exit(1);
+        }
+
+        V=(float*)(malloc((n)*sizeof(float)));
+
+        if(V == NULL){
+            printf(" \n Erro de alocação de memória. \n");
+            system("pause");
+            exit(1);
+        }
+
+        X=(float*)(malloc((n)*sizeof(float)));
+
+        if(X == NULL){
+            printf(" \n Erro de alocação de memória. \n");
+            system("pause");
+            exit(1);
+        }
+
+        printf("\n Procederemos agora com a leitura dos vetores da diagonal e subdiagonal de A, respectivametne. \n");
+
+        for(i=0; i<ORDEM; i++){
+            printf("\n Digite o elemento de posicao %d da Diagonal de A, da primeira linha para última. \n \n \t", i+1);
+            scanf("%f", &DiagPrincipalA[i]);
+        }
+
+        for(i=0; i<ORDEM-1; i++){
+            printf("\n Digite o elemento de posicao %d da SubDiagonal de A, da primeira linha para última. \n \n \t", i+1);
+            scanf("%f", &SubDiagoalA[i]);
+        }
+
+        printf("\n\n O vetor diagonal principal de A, da primeira linha para última é:  \n \n \t", i+1);
+
+        for(i=0; i<ORDEM; i++){
+            printf("   %2.f   ", DiagPrincipalA[i]);
+        }
+
+        printf("\n\n O vetor Subdiagonal de A, da primeira linha para última é:  \n \n \t", i+1);
+
+
+        for(i=0; i<ORDEM-1; i++){
+            printf("   %2.f   ", SubDiagoalA[i]);
+        }
+
+        // Agora definiremos os vetores diagonal de D, denominado VetorD, e o vetor subdiagonal de L, denominado VetorL
+        VetorD[0]=DiagPrincipalA[0];
+
+        for(i=0; i<=ORDEM-2; i++){
+            VetorL[i]=(SubDiagoalA[i])/VetorD[i];
+            VetorD[i+1]=DiagPrincipalA[i+1]-VetorL[i]*SubDiagoalA[i];
+        }
+
+        free(DiagPrincipalA); // Libero da memória o vetor DiagPrincipalA.
+
+        // Imprimiremos agora os vetores L e D
+
+        printf(" \n\n O vetor diagonal da matriz D é: \n\n ");
+
+        for(i=0; i<ORDEM; i++){
+            printf("   %f  ", VetorD[i]);
+        }
+
+        printf(" \n\n O vetor subdiagonal da matriz L é: \n\n ");
+
+        for(i=0; i<ORDEM-1; i++){
+            printf("   %f  ", VetorL[i]);
+        }
+
+        printf("\n\n Digite as coordenadas do vetor B para obtermos o sistema Ax=B: \n\n");
+
+        for(i=0; i<ORDEM; i++){
+            printf("\n Digite a %d-ésima coordenada do vetor B: \n \n \t", i+1);
+            scanf("%f", &B[i]);
+        }
+
+        printf("\n\n O vetor B digitado foi:  \n \n \t", i+1);
+
+        for(i=0; i<ORDEM; i++){
+            printf("   %2.f   ", B[i]);
+        }
+
+        printf("\n\n Resolveremos a segunda parte do exercício. Se LU=B. Então o vetor U é:  \n \n \t", i+1);
+
+
+        U[0]=B[0];
+        for(i=1; i<ORDEM; i++){
+
+            U[i]= B[i]-VetorL[i-1]*U[i-1];
+        }
+
+        free(B);
+
+        for(i=0; i<ORDEM; i++){
+            printf("   %2.f   ", U[i]);
+        }
+
+        printf("\n\n Se DV=U. Então o vetor V é:  \n \n \t", i+1);
+
+
+
+        for(i=0; i<ORDEM; i++){
+
+            V[i]= U[i]/VetorD[i];
+        }
+
+        free(U);
+
+        for(i=0; i<ORDEM; i++){
+            printf("   %2.f   ", V[i]);
+        }
+
+
+        printf("\n\n Se L^tX=V. Então o vetor X, ou seja, a solução do sistema AX=B é:  \n \n \t", i+1);
+
+
+        X[n-1]=V[n-1];
+        for(i=n-2; i>=0; i--){
+
+            X[i]=(V[i]-VetorL[i]*X[i+1]);
+        }
+
+        free(V);
+        free(VetorL);
+        free(SubDiagoalA); // Libero da memória o vetor SubDiagoaA.
+
+        for(i=0; i<ORDEM; i++){
+            printf("   %f   ", X[i]);
+        }
+
+
+
+    printf("   \n\n   Digite 1 para permanecer no progrma e outro valor para sair. \n\n \t");
+    scanf("%d", & codigoAcao);
+
+    } while(codigoAcao ==1); // para que se retorne as opções até que o usuario digite a opção 4.
+
+    return 0;
+}
