@@ -1,0 +1,259 @@
+ #include <stdio.h>
+#include<locale.h> // Para colocar acentuação
+#include <conio.h>
+#include<math.h>
+#include <stdlib.h> // Necessário para gerar números aleatórios
+#include <time.h>  // Necessário para gerar números aleatórios
+
+double  NORM_INF(int n, double DIFERENCA[n])
+{
+   double MAIOR_MODULO_COORDENADA;
+   int i, j;
+   MAIOR_MODULO_COORDENADA = fabs(DIFERENCA[0]);
+   for(i=0; i<=n-1; i++){
+        if (fabs(DIFERENCA[i]) >MAIOR_MODULO_COORDENADA )
+            MAIOR_MODULO_COORDENADA=fabs(DIFERENCA[i]);
+   }
+   return MAIOR_MODULO_COORDENADA;
+}
+
+
+double  Calculo_ERRO(double a,double b,double lambda, int n)
+{
+    double *DiagPrincipalA, *SubDiagoalA, *VetorL, *VetorD, *B, *U, *V, *C, *DIFERENCA, *Sol_EXATA; // Aqui fazemos a declaração dos ponteiros para a alocação dinâmica dos vetores.
+    double h, DIFF;
+    int i;
+        h=(b-a)/(n+1.000);
+
+        DiagPrincipalA=(double*)(malloc(n*sizeof(double))); // Alocação dinâmica do vetor DiagPrinipipalA
+
+        if(DiagPrincipalA == NULL){// Teste para verificar se ocorreu tudo bem na alocação. Será feito para todos os casos.
+            printf(" \n Erro de alocação de memória Diagonal Principal. \n");
+            system("pause");
+            exit(1);
+        }
+
+        SubDiagoalA=(double*)(malloc((n-1)*sizeof(double)));
+
+        if(SubDiagoalA == NULL){
+            printf(" \n Erro de alocação de memória Subdiagonal Principal. \n");
+            system("pause");
+            exit(1);
+        }
+
+        VetorL=(double*)(malloc((n-1)*sizeof(double)));
+
+        if(VetorL == NULL){
+            printf(" \n Erro de alocação de memória de L. \n");
+            system("pause");
+            exit(1);
+        }
+
+        VetorD=(double*)(malloc(n*sizeof(double)));
+
+        if(VetorD == NULL){
+            printf(" \n Erro de alocação de memória de D. \n");
+            system("pause");
+            exit(1);
+        }
+
+        B=(double*)(malloc(n*sizeof(double)));
+
+        if(B == NULL){
+            printf(" \n Erro de alocação de memória de B. \n");
+            system("pause");
+            exit(1);
+        }
+
+        U=(double*)(malloc(n*sizeof(double)));
+
+        if(U == NULL){
+            printf(" \n Erro de alocação de memória de U. \n");
+            system("pause");
+            exit(1);
+        }
+
+        V=(double*)(malloc(n*sizeof(double)));
+
+        if(V == NULL){
+            printf(" \n Erro de alocação de memória de V. \n");
+            system("pause");
+            exit(1);
+        }
+
+        C=(double*)(malloc(n*sizeof(double)));
+
+        if(C == NULL){
+            printf(" \n Erro de alocação de memória de C. \n");
+            system("pause");
+            exit(1);
+        }
+
+        DIFERENCA=(double*)(malloc(n*sizeof(double)));
+
+        if(DIFERENCA == NULL){
+            printf(" \n Erro de alocação de memória de C. \n");
+            system("pause");
+            exit(1);
+        }
+
+        Sol_EXATA=(double*)(malloc(n*sizeof(double)));
+
+        if(Sol_EXATA == NULL){
+            printf(" \n Erro de alocação de memória de C. \n");
+            system("pause");
+            exit(1);
+        }
+
+        for(i=0; i<n; i++){ // Determino o vetor diagonal principal da Matriz dos coeficientes do sistema 10.
+            DiagPrincipalA[i]=(2.00/h)+lambda*h*(2/3.00);
+        }
+
+        for(i=0; i<n-1; i++){ // Determino o vetor subdiagonal principal da Matriz dos coeficientes do sistema 10.
+            SubDiagoalA[i]=(-1.00/h)+lambda*(h/6.00);
+        }
+
+        // Agora definiremos os vetores diagonal de D, denominado VetorD, e o vetor subdiagonal de L, denominado VetorL
+        VetorD[0]=DiagPrincipalA[0];
+
+        for(i=0; i<=n-2; i++){
+            VetorL[i]=(SubDiagoalA[i])/VetorD[i];
+            VetorD[i+1]=DiagPrincipalA[i+1]-VetorL[i]*SubDiagoalA[i];
+        }
+
+        free(DiagPrincipalA);
+
+        for(i=0; i<n; i++){// Declaro a matriz dos termos independentes do sistema (10), na questão 1.
+                B[i]=h;
+        }
+
+        U[0]=B[0];
+        for(i=1; i<n; i++){
+            U[i]= B[i]-VetorL[i-1]*U[i-1];
+        }
+
+        free(B);
+
+        for(i=0; i<n; i++){
+
+            V[i]= U[i]/VetorD[i];
+        }
+
+        free(U);
+        free(VetorD);
+        C[n-1]=V[n-1];
+        for(i=n-2; i>=0; i--){
+
+            C[i]=(V[i]-VetorL[i]*C[i+1]);
+        }
+
+        free(V);
+        free(VetorL);
+        free(SubDiagoalA);
+
+        /*
+        printf("\n\n Se DV=U. Então o vetor V é:  \n \n \t", i+1);
+        for(i=0; i<n; i++){
+            printf("   %lf   ", V[i]);
+        }
+        */
+
+        /*
+        printf("\n\n Se L^tC=V. Então o vetor C, ou seja, a solução do sistema (10) ( denotado aqui por AC=B) é:  \n \n \t");
+        for(i=0; i<n; i++){//Impressão para verificação da solução do sistema (1).
+            printf("\n \t c_%d = %lf   \n",i, C[i]);
+        }
+
+        printf("\n\n  Vetor Solução exata:  \n \n \t");
+        for(i=0; i<n; i++){//Calcularemos o módulo da diferença, em cada coordenada, da solução com a solução coordenada.
+            Sol_EXATA[i]=(1.0/2.0)*(a+i*h)*(1.0- (a+i*h));
+            printf("\n \t A %d_ésima solução exata é_%lf   \n",i, Sol_EXATA[i]);
+        }
+        */
+
+        for(i=1; i<=n; i++){//Calcularemos o módulo da diferença, em cada coordenada, da solução com a solução coordenada.
+            DIFERENCA[i-1]=((1.0/2.0)*(a+i*h)*(1.0- (a+i*h)))-C[i-1];
+        }
+
+        /*
+        printf("\n\n O vetor diferença entre a solução exata e a númerica em cada x_i é:  \n \n \t");
+        for(i=0; i<=n; i++){//Impressão para verificação da solução do sistema (1).
+            printf("\n \t Diferença_%d = %lf   \n",i, DIFERENCA[i]);
+        }
+        */
+
+        free(C);
+        DIFF = NORM_INF(n,DIFERENCA);
+        free(DIFERENCA);
+
+   return DIFF;
+}
+
+
+int main()
+{
+    int i, j,k, n, codigoAcao, OPCAO_n, AUX;
+    double lambda,a,b,CALC_ERRO,h, VETOR_ERRO[6];
+
+    setlocale(LC_ALL, "portuguese"); // Para colocar acentuação.
+    system("color E5"); // Apenas para estética. Deixa o fundo amarelo "E". e a letra roxa "5".
+
+    do{
+
+
+        do{
+            printf("\n\n Digite 1 para escolher os valores de n, de lambda, e dos pontos inicial e final do intervalo.\n ");
+            printf("\n Digite 2 para escolher a lista de n´s: 15,31,63,127,255 com lambda zero e intervalo [0,1]. \n\n \t");
+            scanf("%d", &OPCAO_n);
+
+            switch(OPCAO_n){
+                case 1:
+                    printf("\n Digite o valor n: \n\n \t");
+                    scanf("%d", &n);
+
+                    printf("\n Digite o valor de lambda: \n\n \t");
+                    scanf("%lf", &lambda);
+
+                    printf("\n Digite o início do intervalo: \n\n \t");
+                    scanf("%lf", &a);
+
+                    printf("\n Digite o fim do intervalo: \n\n \t");
+                    scanf("%lf", &b);
+
+                    printf("\n \n O erro cometido é %e  \n \n \t", Calculo_ERRO(a,b,lambda,n) );
+
+                    break;
+                case 2: a=0; b=1; lambda=0;
+                    printf("                               +-----------------------------------------+\n");
+                    printf("                               |        Dados Obtidos - Questão 1        |\n");
+                    printf("                               +-----+----------+------------------------+\n");
+                    printf("                               |  n  | h        |        Erro            | \n");
+                    printf("                               +-----+----------+------------------------+\n");
+
+
+                    AUX=7;
+                    for(i=15; i<=255; i=AUX*2+1){
+                    h=1/(i+1.0);
+                    CALC_ERRO=Calculo_ERRO(a,b,lambda,i);
+                    printf("                               |  %d | %lf |        %e   |\n", i, h, CALC_ERRO);
+                    printf("                               +------+----------+-----------------------+\n \n");
+
+                        AUX=AUX*2+1;
+                    }
+                    break;
+                default:
+                    printf("\n\n  Opção inválida. \n\n");
+
+            }
+        }while(OPCAO_n !=1 && OPCAO_n != 2 );// Para que o usuário escolha uma das opções
+
+
+
+
+    printf("   \n\n   Digite 1 para permanecer no progrma e outro valor para sair. \n\n \t");
+    scanf("%d", & codigoAcao);
+
+    } while(codigoAcao ==1); // para que se retorne as opções até que o usuario digite a opção 4.
+
+    return 0;
+}
