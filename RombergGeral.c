@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
-#include<locale.h> // Para colocar acentuaÁ„o
+#include<locale.h> // Para colocar acentua√ß√£o
 
 
 double Func_1 (double x);
@@ -24,7 +24,7 @@ double  Func_Runge(double x) // Calcula f(x)=1/(1-x)
    return (1.0/(1.0+pow(x,2)));
 }
 
-double Trapz(double f(double), double a, double b, double t, int i) // FunÁ„o para o c·lculo dos elementos da primeira coluna
+double Trapz(double f(double), double a, double b, double t, int i) // Fun√ß√£o para o c√°lculo dos elementos da primeira coluna
 {
   int k;
   double h, sum;
@@ -76,20 +76,20 @@ double romberg(double f(double), double a, double b, int ITMAX, double Precisao,
          }
        }
       if(Cont==ITMAX){
-        printf("\n O n˙mero m·ximo de iteraÁıes %d foi atingido.\n", ITMAX);
+        printf("\n O n√∫mero m√°ximo de itera√ß√µes %d foi atingido.\n", ITMAX);
       }
       if(DIF <= Precisao){
-        printf("\n A precis„o desejada foi alcanÁada. O erro relativo foi: %1lf. \n", DIF);
+        printf("\n A precis√£o desejada foi alcan√ßada. O erro relativo foi: %1lf. \n", DIF);
       }
       if(DIF > Precisao){
-        printf("\n A precis„o desejada n„o foi alcanÁada. O erro relativo foi: %1lf. \n", DIF);
+        printf("\n A precis√£o desejada n√£o foi alcan√ßada. O erro relativo foi: %1lf. \n", DIF);
       }
-      printf("\n Na iteraÁ„o %d ocorreu uma melhor aproximaÁ„o para a integral da funÁ„o, de %lf a %lf. Que foi: %.10lf \n", Cont,a, b, Melhor_APRX);
+      printf("\n Na itera√ß√£o %d ocorreu uma melhor aproxima√ß√£o para a integral da fun√ß√£o, de %lf a %lf. Que foi: %.10lf \n", Cont,a, b, Melhor_APRX);
       
      
-	  if(ITMAX<=6|| Cont <=6) // Imprimiremos a tabela de Romberg para valores de n compatÌveis com o tamanho da tela no terminal
+	  if(ITMAX<=6|| Cont <=6) // Imprimiremos a tabela de Romberg para valores de n compat√≠veis com o tamanho da tela no terminal
    {
-      printf("A tabela de Romberg È: \n\n");
+      printf("A tabela de Romberg √©: \n\n");
       printf("  R[0][0] = %lf  ", R[0][0]);
       for (i = 1; i < Cont; i++)
       {
@@ -110,17 +110,17 @@ int main()
   int i,ITMAX, codigoAcao;
   double a,b, Precisao, TOL;
 
-  setlocale(LC_ALL, "portuguese"); // Para colocar acentuaÁ„o.
-  system("color E5"); // Apenas para estÈtica. Deixa o fundo amarelo "E". e a letra roxa "5".
+  setlocale(LC_ALL, "portuguese"); // Para colocar acentua√ß√£o.
+  system("color E5"); // Apenas para est√©tica. Deixa o fundo amarelo "E". e a letra roxa "5".
 
-  printf(" \n ObservaÁıes: \n \t");
-  printf(" \n (1) Os n˙meros decimais devem ser digitados com vÌrgula e n„o ponto, pois o programa est· configurado para lÌngua portuguesa. Caso o usu·rio queira desativar o uso da lÌngua portuguesa, basta desativar a linha do cÛgido que contÈm o comando: setlocale. PorÈm, as mensagens ficar„o sem acentuaÁ„o. \n");
-    printf(" \n (2) As funÁıes trabalhadas neste cÛdigo s„o as originais do enunciado do EP, mas o usu·rio pode altera-las diretamente no cÛdigo de acordo com seu interesse.\n\n ");
-  /*printf(" \n Digite o n˙mero m·ximo de iteraÁıes:  \t");
-  scanf("%d", &ITMAX);*/ // Ative este coment·rio e desative a linha abaixo para escolher o valor ITMAX diretamente no terminal.
+  printf(" \n Observa√ß√µes: \n \t");
+  printf(" \n (1) Os n√∫meros decimais devem ser digitados com v√≠rgula e n√£o ponto, pois o programa est√° configurado para l√≠ngua portuguesa. Caso o usu√°rio queira desativar o uso da l√≠ngua portuguesa, basta desativar a linha do c√≥gido que cont√©m o comando: setlocale. Por√©m, as mensagens ficar√£o sem acentua√ß√£o. \n");
+    printf(" \n (2) As fun√ß√µes trabalhadas neste c√≥digo s√£o as originais do enunciado do EP, mas o usu√°rio pode altera-las diretamente no c√≥digo de acordo com seu interesse.\n\n ");
+  /*printf(" \n Digite o n√∫mero m√°ximo de itera√ß√µes:  \t");
+  scanf("%d", &ITMAX);*/ // Ative este coment√°rio e desative a linha abaixo para escolher o valor ITMAX diretamente no terminal.
   ITMAX=28;
-  /*printf(" \n Digite a precis„o desejada:  \t");
-  scanf("%lf", &Precisao);*/ //Ative este coment·rio e desative a linha abaixo para escolher o valor Precisao diretamente no terminal.
+  /*printf(" \n Digite a precis√£o desejada:  \t");
+  scanf("%lf", &Precisao);*/ //Ative este coment√°rio e desative a linha abaixo para escolher o valor Precisao diretamente no terminal.
   Precisao=0,0000001;
 
   double **R;
@@ -128,27 +128,27 @@ int main()
 
   R = calloc(ITMAX, sizeof(double *));
 
-  if(R == NULL){// Teste para verificar se ocorreu tudo bem na alocaÁ„o.
-    printf(" \n Erro de alocaÁ„o de memÛria Diagonal Principal. \n");
+  if(R == NULL){// Teste para verificar se ocorreu tudo bem na aloca√ß√£o.
+    printf(" \n Erro de aloca√ß√£o de mem√≥ria Diagonal Principal. \n");
     system("pause");
     exit(1);
                }
 
   /*printf(" \n Digite o valor inicial do intervalo:  \t");
-  scanf("%lf", &a);*/ // Ative este coment·rio e desative a linha abaixo para escolher o valor a diretamente no terminal.
+  scanf("%lf", &a);*/ // Ative este coment√°rio e desative a linha abaixo para escolher o valor a diretamente no terminal.
   a=-5;
 
   /*printf(" \n Digite o valor final do intervalo:  \t");
-  scanf("%lf", &b);*/ //Ative este coment·rio e desative a linha abaixo para escolher o valor b diretamente no terminal.
+  scanf("%lf", &b);*/ //Ative este coment√°rio e desative a linha abaixo para escolher o valor b diretamente no terminal.
   b=5;
 
   for (i = 0; i < ITMAX; i++)
     R[i] = calloc(ITMAX, sizeof(double));
-  printf("\n --> Para funÁ„o f(x)= x^2. Temos: \n");
+  printf("\n --> Para fun√ß√£o f(x)= x^2. Temos: \n");
   romberg(Func_1, a, b,ITMAX,Precisao, R);
-  printf("\n --> Para funÁ„o f(x)= 1/(1-x). Temos: \n");
+  printf("\n --> Para fun√ß√£o f(x)= 1/(1-x). Temos: \n");
   romberg(Func_2, a, b,ITMAX,Precisao, R);
-  printf("\n -->Para funÁ„o Runge f(x)= 1/(1+x^2). Temos: \n");
+  printf("\n -->Para fun√ß√£o Runge f(x)= 1/(1+x^2). Temos: \n");
   romberg(Func_Runge, a, b,ITMAX,Precisao, R);
 
 
