@@ -70,12 +70,12 @@ int main()
 
   printf("\n melhor aprox em 3 %lf \n",   romberg(F, 0.0, 2.0,10, R,3));
 
-        for(i=1; i<=5; i++){// Declaro a matriz dos termos independentes do sistema (10), na questão 1.
+        for(i=1; i<=5; i++){// Declaro a matriz dos termos independentes do sistema (10), na questÃ£o 1.
                 B[i-1]=romberg(F, 0.0, 2.0,10, R,i);
         }
 
-        printf("\n\n O vetor de termos independentes do nosso sistema (14) é:  \n \n \t", i+1);
-        for(i=0; i<n; i++){ // Conferência do vetor B
+        printf("\n\n O vetor de termos independentes do nosso sistema (14) Ã©:  \n \n \t", i+1);
+        for(i=0; i<n; i++){ // ConferÃªncia do vetor B
             printf("   %lf   ", B[i]);
         }
 
