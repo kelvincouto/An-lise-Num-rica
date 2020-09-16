@@ -1,9 +1,9 @@
 #include <stdio.h>
-#include<locale.h> // Para colocar acentuaÁ„o
+#include<locale.h> // Para colocar acentua√ß√£o
 #include <conio.h>
 #include<math.h>
-#include <stdlib.h> // Necess·rio para gerar n˙meros aleatÛrios
-#include <time.h>  // Necess·rio para gerar n˙meros aleatÛrios
+#include <stdlib.h> // Necess√°rio para gerar n√∫meros aleat√≥rios
+#include <time.h>  // Necess√°rio para gerar n√∫meros aleat√≥rios
 
 double  NORM_INF(int n, double DIFERENCA[n])
 {
@@ -44,18 +44,18 @@ double  DerivadaChapeu(int j, double y, double h)
 
 
 
-double Func_f(double y) // Aqui o usu·rio definira a funÁ„o f a ser usada
+double Func_f(double y) // Aqui o usu√°rio definira a fun√ß√£o f a ser usada
 {
   return (12*y*(1-y)-2);
 }
 
 
-double Func_k(double y)// Aqui o usu·rio definira a funÁ„o k a ser usada
+double Func_k(double y)// Aqui o usu√°rio definira a fun√ß√£o k a ser usada
 {
   return 1;
 }
 
-double Func_q(double y)// Aqui o usu·rio definira a funÁ„o q a ser usada
+double Func_q(double y)// Aqui o usu√°rio definira a fun√ß√£o q a ser usada
 {
   return 0;
 }
@@ -76,7 +76,7 @@ double rombergTERMOindep(double f(double), double a, double b, int n, double **R
      sum = 0;
      for (k = 1; k <= pow(2,i)-1; k+=2)
      {
-       sum += f(a + k * h)*Chapeu(l,a+k*h,h); // Aqui nessa parte sei que posso usar o suporte compacto da chapÈu. Mas por quest„o de tempo fiz sem usar. Desculpe... mas È simples È sÛ escrever a fÛrumula considerando onde chapÈu n„o se anula e restringindo esse intervalo
+       sum += f(a + k * h)*Chapeu(l,a+k*h,h); // Aqui nessa parte sei que posso usar o suporte compacto da chap√©u. Mas por quest√£o de tempo fiz sem usar. Desculpe... mas √© simples √© s√≥ escrever a f√≥rumula considerando onde chap√©u n√£o se anula e restringindo esse intervalo
      }
      R[i][0] = 0.5 * R[i-1][0] + sum * h;
      /*printf(" R[%d][0] = %f\n", i, R[i][0]);*/
@@ -95,7 +95,7 @@ double rombergMatrizCoefic(double Func_k(double), double Func_q(double), double 
 
 
   h = b - a;
-  R[0][0] = 0.5 * h * ((Func_k(a)*DerivadaChapeu(l,a,h)*DerivadaChapeu(c,a,h) + Func_q(a)*DerivadaChapeu(l,a,h))*DerivadaChapeu(c,a,h)-((Func_k(b)*DerivadaChapeu(l,b,h)*DerivadaChapeu(c,b,h) + Func_q(a)*DerivadaChapeu(l,b,h))*DerivadaChapeu(c,b,h))); // Aqui poderÌamos substituir o valor direto das derivadas mas preferiamos deixar indicado
+  R[0][0] = 0.5 * h * ((Func_k(a)*DerivadaChapeu(l,a,h)*DerivadaChapeu(c,a,h) + Func_q(a)*DerivadaChapeu(l,a,h))*DerivadaChapeu(c,a,h)-((Func_k(b)*DerivadaChapeu(l,b,h)*DerivadaChapeu(c,b,h) + Func_q(a)*DerivadaChapeu(l,b,h))*DerivadaChapeu(c,b,h))); // Aqui poder√≠amos substituir o valor direto das derivadas mas preferiamos deixar indicado
   /*printf(" R[0][0] = %f\n", R[0][0]);*/
 
   for (i = 1; i <= n; i++)
@@ -119,32 +119,31 @@ double rombergMatrizCoefic(double Func_k(double), double Func_q(double), double 
 
 double  Calculo_ERRO(double a,double b,double lambda, int n)
 {
-    double DiagPrincipalA[n], SubDiagoalA[n-1], VetorL[n], VetorD[n], B[n], U[n], V[n], C[n],H[n], DIFERENCA[10*n+1], Sol_EXATA[10*n+1], PHI[n], SOL_NUMERICA[10*n+1];; // Aqui fazemos a declaraÁ„o dos ponteiros para a alocaÁ„o din‚mica dos vetores.
+    double DiagPrincipalA[n], SubDiagoalA[n-1], VetorL[n], VetorD[n], B[n], U[n], V[n], C[n],H[n], DIFERENCA[10*n+1], Sol_EXATA[10*n+1], PHI[n], SOL_NUMERICA[10*n+1];; // Aqui fazemos a declara√ß√£o dos ponteiros para a aloca√ß√£o din√¢mica dos vetores.
     double h,y, DIFF;
     int i,j,l,ITMAX;
     FILE *arqAPR15, *arqAPR31,*arqAPR63, *arqAPR127,*arqAPR255, *arqEXT15, *arqEXT31,*arqEXT63, *arqEXT127,*arqEXT255;
-    ITMAX=5; // N˙mero m·ximo de iteraÁıees no mÈtodo de Romberg para c·lculo das integrais do nosso sistema.
+    ITMAX=5; // N√∫mero m√°ximo de itera√ß√µees no m√©todo de Romberg para c√°lculo das integrais do nosso sistema.
 
     double **R;
     double Func_f(double);
 
     R = calloc(ITMAX, sizeof(double *));
 
-    if(R == NULL){// Teste para verificar se ocorreu tudo bem na alocaÁ„o.
-       printf(" \n Erro de alocaÁ„o de memÛria Diagonal Principal. \n");
+    if(R == NULL){// Teste para verificar se ocorreu tudo bem na aloca√ß√£o.
+       printf(" \n Erro de aloca√ß√£o de mem√≥ria Diagonal Principal. \n");
        system("pause");
        exit(1);
     }
         h=(b-a)/(n+1.000);
 
-        for(i=0; i<n; i++){ // Determino o vetor diagonal principal da Matriz dos coeficientes do sistema 14.
-            DiagPrincipalA[i]=(2.00/h)+lambda*h*(2/3.00);
+        for(i=0; i<n; i++){ // Determino o vetor diagonal principal da Matriz dos coeficientes do sistema 10.
+            DiagPrincipalA[i]=rombergMatrizCoefic(Func_k, Func_q, a, b, ITMAX,R,i,i);
         }
 
-        for(i=0; i<n-1; i++){ // Determino o vetor subdiagonal principal da Matriz dos coeficientes do sistema 14.
-            SubDiagoalA[i]=(-1.00/h)+lambda*(h/6.00);
+           for(i=0; i<n-1; i++){ // Determino o vetor subdiagonal principal da Matriz dos coeficientes do sistema 10.
+            SubDiagoalA[i]=rombergMatrizCoefic(Func_k, Func_q, a, b, ITMAX,R,i,i+1);
         }
-
 
         // Agora definiremos os vetores diagonal de D, denominado VetorD, e o vetor subdiagonal de L, denominado VetorL
         VetorD[0]=DiagPrincipalA[0];
@@ -154,28 +153,28 @@ double  Calculo_ERRO(double a,double b,double lambda, int n)
             VetorD[i+1]=DiagPrincipalA[i+1]-VetorL[i]*SubDiagoalA[i];
         }
 
-        /*for(i=1; i<=n; i++){// Declaro a matriz dos termos independentes do sistema (14), na quest„o 1.
+        /*for(i=1; i<=n; i++){// Declaro a matriz dos termos independentes do sistema (14), na quest√£o 1.
                 B[i-1]=(h*(-12*h*h*i*i-2*h*h+12*h*i-2));
         }
 
-        printf("\n\n O vetor de termos independentes do nosso sistema (14) È:  \n \n \t", i+1);
-        for(i=0; i<n; i++){ // ConferÍncia do vetor U
+        printf("\n\n O vetor de termos independentes do nosso sistema (14) √©:  \n \n \t", i+1);
+        for(i=0; i<n; i++){ // Confer√™ncia do vetor U
             printf("   %lf   ", B[i]);
         }*/
 
 
-        for(l=1; l<=n; l++){// Declaro a matriz dos termos independentes do sistema (14), na quest„o 1.
-                B[l-1]=rombergTERMOindep(Func_f, a, b,ITMAX, R,l); // Detectei que tem um erro aqui que impede a compilaÁ„o, mas n„o deu tempo de resolver. Testei um cÛdigo(que est· no github)  auxiliar que parece estar igual, mas compila.
+        for(l=1; l<=n; l++){// Declaro a matriz dos termos independentes do sistema (14), na quest√£o 1.
+                B[l-1]=rombergTERMOindep(Func_f, a, b,ITMAX, R,l); // Detectei que tem um erro aqui que impede a compila√ß√£o, mas n√£o deu tempo de resolver. Testei um c√≥digo(que est√° no github)  auxiliar que parece estar igual, mas compila.
         }
 
         /*printf("\n\n O vetor de termos independentes con Rombeerg  \n \n \t", i+1);
-        for(i=0; i<n; i++){ // ConferÍncia do vetor U
+        for(i=0; i<n; i++){ // Confer√™ncia do vetor U
             printf("   %lf   ", B[i]);
         }*/
 
 
 
-        //A seguir resolveremos o sistema (10) pela tÈcnica usada no EP2.
+        //A seguir resolveremos o sistema (10) pela t√©cnica usada no EP2.
 
         U[0]=B[0];
         for(i=1; i<n; i++){
@@ -201,7 +200,7 @@ double  Calculo_ERRO(double a,double b,double lambda, int n)
             for(j=1; j<=n; j++){
                 PHI[j-1]=Chapeu(j,y,h);
                 /*
-                printf("\n\n  PHI_%d(x_%d)=%lf   \n \t", j, i,PHI[j-1] );/Conferi que a PHI est· correta.
+                printf("\n\n  PHI_%d(x_%d)=%lf   \n \t", j, i,PHI[j-1] );/Conferi que a PHI est√° correta.
                 */
             SOL_NUMERICA[i]=SOL_NUMERICA[i] + C[j-1]*PHI[j-1];
             }
@@ -209,13 +208,13 @@ double  Calculo_ERRO(double a,double b,double lambda, int n)
 
 
         /*
-        printf("\n\n  Vetor SoluÁ„o numÈrica:  \n \n \t");
-        for(i=0; i<10*n; i++){//Calcularemos o mÛdulo da diferenÁa, em cada coordenada, da soluÁ„o com a soluÁ„o coordenada.
+        printf("\n\n  Vetor Solu√ß√£o num√©rica:  \n \n \t");
+        for(i=0; i<10*n; i++){//Calcularemos o m√≥dulo da diferen√ßa, em cada coordenada, da solu√ß√£o com a solu√ß√£o coordenada.
             printf("\n \t SOL_NUM [ %d ] = %e   \n",i, SOL_NUMERICA[i]);
         }*/
 
 
-        for(i=0; i<n+2; i++){//Calcularemos o mÛdulo da diferenÁa, em cada coordenada, da soluÁ„o com a soluÁ„o coordenada.
+        for(i=0; i<n+2; i++){//Calcularemos o m√≥dulo da diferen√ßa, em cada coordenada, da solu√ß√£o com a solu√ß√£o coordenada.
             Sol_EXATA[i]=(a+i*h)*(a+i*h)*((a+i*h)-1.0)*((a+i*h)-1.0);
             /*printf("\n \t SOL_EXATA [ %d ] = %e   \n", i, Sol_EXATA [i]);*/
 
@@ -306,16 +305,16 @@ double  Calculo_ERRO(double a,double b,double lambda, int n)
 
         }
 
-        for(i=0; i<=10*n; i++){//Calcularemos o mÛdulo da diferenÁa, em cada coordenada, da soluÁ„o com a soluÁ„o coordenada.
+        for(i=0; i<=10*n; i++){//Calcularemos o m√≥dulo da diferen√ßa, em cada coordenada, da solu√ß√£o com a solu√ß√£o coordenada.
             y=i/(10.0*n);
             DIFERENCA[i]=y*y*(y-1.0)*(y-1.0)- SOL_NUMERICA[i];
         }
 
 
         /*
-        printf("\n\n O vetor diferenÁa entre a soluÁ„o exata e a n˙merica em cada x_i È:  \n \n \t");
-        for(i=0; i<=n; i++){//Impress„o para verificaÁ„o da soluÁ„o do sistema (1).
-            printf("\n \t DiferenÁa_%d = %lf   \n",i, DIFERENCA[i]);
+        printf("\n\n O vetor diferen√ßa entre a solu√ß√£o exata e a n√∫merica em cada x_i √©:  \n \n \t");
+        for(i=0; i<=n; i++){//Impress√£o para verifica√ß√£o da solu√ß√£o do sistema (1).
+            printf("\n \t Diferen√ßa_%d = %lf   \n",i, DIFERENCA[i]);
         }
         */
 
@@ -327,23 +326,23 @@ double  Calculo_ERRO(double a,double b,double lambda, int n)
 
 double  Calculo_ERRO_NOS(double a,double b,double lambda, int n)
 {
-    double DiagPrincipalA[n], SubDiagoalA[n-1], VetorL[n], VetorD[n], B[n], U[n], V[n], C[n], DIFERENCA[n], Sol_EXATA[n+2], PHI[n], SOL_NUMERICA[n+2];; // Aqui fazemos a declaraÁ„o dos ponteiros para a alocaÁ„o din‚mica dos vetores.
+    double DiagPrincipalA[n], SubDiagoalA[n-1], VetorL[n], VetorD[n], B[n], U[n], V[n], C[n], DIFERENCA[n], Sol_EXATA[n+2], PHI[n], SOL_NUMERICA[n+2];; // Aqui fazemos a declara√ß√£o dos ponteiros para a aloca√ß√£o din√¢mica dos vetores.
     double h,y, DIFF,Precisao;
     int i,j,l, ITMAX;
-    ITMAX=10; // N˙mero m·ximo de iteraÁıees no mÈtodo de Romberg para c·lculo das integrais do nosso sistema.
+    ITMAX=10; // N√∫mero m√°ximo de itera√ß√µees no m√©todo de Romberg para c√°lculo das integrais do nosso sistema.
 
     double **R;
     double Func_f(double);
 
     R = calloc(ITMAX, sizeof(double *));
 
-    if(R == NULL){// Teste para verificar se ocorreu tudo bem na alocaÁ„o.
-       printf(" \n Erro de alocaÁ„o de memÛria Diagonal Principal. \n");
+    if(R == NULL){// Teste para verificar se ocorreu tudo bem na aloca√ß√£o.
+       printf(" \n Erro de aloca√ß√£o de mem√≥ria Diagonal Principal. \n");
        system("pause");
        exit(1);
     }
         h=(b-a)/(n+1.000);
-        /*printf("\n O valor de h È: %lf \n",h); // Teste leitura de h*/
+        /*printf("\n O valor de h √©: %lf \n",h); // Teste leitura de h*/
 
 
         for(i=0; i<n; i++){ // Determino o vetor diagonal principal da Matriz dos coeficientes do sistema 10.
@@ -363,27 +362,27 @@ double  Calculo_ERRO_NOS(double a,double b,double lambda, int n)
         }
 
 
-         /*for(i=1; i<=n; i++){// Declaro a matriz dos termos independentes do sistema (14), na quest„o 1.
+         /*for(i=1; i<=n; i++){// Declaro a matriz dos termos independentes do sistema (14), na quest√£o 1.
                 B[i-1]=(h*(-12*h*h*i*i-2*h*h+12*h*i-2));
         }
 
-        printf("\n\n O vetor de termos independentes do nosso sistema (14) È:  \n \n \t", i+1);
-        for(i=0; i<n; i++){ // ConferÍncia do vetor U
+        printf("\n\n O vetor de termos independentes do nosso sistema (14) √©:  \n \n \t", i+1);
+        for(i=0; i<n; i++){ // Confer√™ncia do vetor U
             printf("   %lf   ", B[i]);
         }*/
 
 
-        for(l=1; l<=n; l++){// Declaro a matriz dos termos independentes do sistema (14), na quest„o 1.
-                B[l-1]=rombergTERMOindep(Func_f, a, b,ITMAX, R,l); // Detectei que tem um erro aqui que impede a compilaÁ„o, mas n„o deu tempo de resolver. Testei um cÛdigo(que est· no github)  auxiliar que parece estar igual, mas compila.
+        for(l=1; l<=n; l++){// Declaro a matriz dos termos independentes do sistema (14), na quest√£o 1.
+                B[l-1]=rombergTERMOindep(Func_f, a, b,ITMAX, R,l); // Detectei que tem um erro aqui que impede a compila√ß√£o, mas n√£o deu tempo de resolver. Testei um c√≥digo(que est√° no github)  auxiliar que parece estar igual, mas compila.
         }
 
         /*printf("\n\n O vetor de termos independentes con Rombeerg  \n \n \t", i+1);
-        for(i=0; i<n; i++){ // ConferÍncia do vetor U
+        for(i=0; i<n; i++){ // Confer√™ncia do vetor U
             printf("   %lf   ", B[i]);
         }*/
 
 
-        //A seguir resolveremos o sistema (10) pela tÈcnica usada no EP2.
+        //A seguir resolveremos o sistema (10) pela t√©cnica usada no EP2.
 
         U[0]=B[0];
         for(i=1; i<n; i++){
@@ -392,8 +391,8 @@ double  Calculo_ERRO_NOS(double a,double b,double lambda, int n)
 
 
         /*
-        printf("\n\n Resolveremos a segunda parte do exercÌcio. Se LU=B. Ent„o o vetor U È:  \n \n \t", i+1);
-        for(i=0; i<n; i++){ // ConferÍncia do vetor U
+        printf("\n\n Resolveremos a segunda parte do exerc√≠cio. Se LU=B. Ent√£o o vetor U √©:  \n \n \t", i+1);
+        for(i=0; i<n; i++){ // Confer√™ncia do vetor U
             printf("   %lf   ", U[i]);
         }
         */
@@ -416,20 +415,20 @@ double  Calculo_ERRO_NOS(double a,double b,double lambda, int n)
             for(j=1; j<=n; j++){
                 PHI[j-1]=Chapeu(j,y,h);
                 /*
-                printf("\n\n  PHI_%d(x_%d)=%lf   \n \t", j, i,PHI[j-1] );/Conferi que a PHI est· correta.
+                printf("\n\n  PHI_%d(x_%d)=%lf   \n \t", j, i,PHI[j-1] );/Conferi que a PHI est√° correta.
                 */
             SOL_NUMERICA[i]=SOL_NUMERICA[i] + C[j-1]*PHI[j-1];
             }
         }
 
         /*
-        printf("\n\n  Vetor SoluÁ„o numÈrica:  \n \n \t");
-        for(i=0; i<n+2; i++){//Calcularemos o mÛdulo da diferenÁa, em cada coordenada, da soluÁ„o com a soluÁ„o coordenada.
+        printf("\n\n  Vetor Solu√ß√£o num√©rica:  \n \n \t");
+        for(i=0; i<n+2; i++){//Calcularemos o m√≥dulo da diferen√ßa, em cada coordenada, da solu√ß√£o com a solu√ß√£o coordenada.
             printf("\n \t SOL_NUM [ %d ] = %e   \n",i, SOL_NUMERICA[i]);
         }
         */
         /*
-        for(i=0; i<n+2; i++){//Calcularemos o mÛdulo da diferenÁa, em cada coordenada, da soluÁ„o com a soluÁ„o coordenada.
+        for(i=0; i<n+2; i++){//Calcularemos o m√≥dulo da diferen√ßa, em cada coordenada, da solu√ß√£o com a solu√ß√£o coordenada.
             Sol_EXATA[i]=(a+i*h)*(a+i*h)*((a+i*h)-1.0)*((a+i*h)-1.0);
             printf("\n \t SOL_EXATA [ %d ] = %e   \n", i, Sol_EXATA [i]);
 
@@ -439,15 +438,15 @@ double  Calculo_ERRO_NOS(double a,double b,double lambda, int n)
 
 
 
-        for(i=0; i<n+2; i++){//Calcularemos o mÛdulo da diferenÁa, em cada coordenada, da soluÁ„o com a soluÁ„o coordenada.
+        for(i=0; i<n+2; i++){//Calcularemos o m√≥dulo da diferen√ßa, em cada coordenada, da solu√ß√£o com a solu√ß√£o coordenada.
             DIFERENCA[i]=(a+i*h)*(a+i*h)*((a+i*h)-1.0)*((a+i*h)-1.0)- SOL_NUMERICA[i];
         }
 
 
         /*
-        printf("\n\n O vetor diferenÁa entre a soluÁ„o exata e a n˙merica em cada x_i È:  \n \n \t");
-        for(i=0; i<=n; i++){//Impress„o para verificaÁ„o da soluÁ„o do sistema (1).
-            printf("\n \t DiferenÁa_%d = %lf   \n",i, DIFERENCA[i]);
+        printf("\n\n O vetor diferen√ßa entre a solu√ß√£o exata e a n√∫merica em cada x_i √©:  \n \n \t");
+        for(i=0; i<=n; i++){//Impress√£o para verifica√ß√£o da solu√ß√£o do sistema (1).
+            printf("\n \t Diferen√ßa_%d = %lf   \n",i, DIFERENCA[i]);
         }
         */
 
@@ -464,15 +463,15 @@ int main()
     FILE *arqERRO, *arqERRO_h;
 
 
-    setlocale(LC_ALL, "portuguese"); // Para colocar acentuaÁ„o.*/
-    /*system("color E5"); // Apenas para estÈtica. Deixa o fundo amarelo "E". e a letra roxa "5".*/
+    setlocale(LC_ALL, "portuguese"); // Para colocar acentua√ß√£o.*/
+    /*system("color E5"); // Apenas para est√©tica. Deixa o fundo amarelo "E". e a letra roxa "5".*/
 
     do{
 
 
         do{
             printf("\n\n Digite 1 para analisar o caso k(x)=1, e g(x)=lambda, e escolher os valores de n, da constante lambda, e dos pontos inicial e final do intervalo.\n ");
-            printf("\n Digite 2 para escolher a lista de n¥s: 15,31,63,127,255 com lambda zero e intervalo [0,1]. \n\n \t");
+            printf("\n Digite 2 para escolher a lista de n¬¥s: 15,31,63,127,255 com lambda zero e intervalo [0,1]. \n\n \t");
             scanf("%d", &OPCAO_n);
 
             switch(OPCAO_n){
@@ -483,21 +482,21 @@ int main()
                     printf("\n Digite o valor de lambda: \n\n \t");
                     scanf("%lf", &lambda);
 
-                    printf("\n Digite o inÌcio do intervalo: \n\n \t");
+                    printf("\n Digite o in√≠cio do intervalo: \n\n \t");
                     scanf("%lf", &a);
 
                     printf("\n Digite o fim do intervalo: \n\n \t");
                     scanf("%lf", &b);
                     h=(b-a)/(n+1.00);
 
-                    printf("\n \n A respeito da an·lise em y_i, o erro cometido È: %e. E ERRO/h^2 = %e.   \n \t", Calculo_ERRO(a,b,lambda,n),Calculo_ERRO(a,b,lambda,n)/(h*h) );
-                    printf("\n \n A respeito da an·lise nos nÛs, o erro cometido È: %e. E ERRO/h^2 = %e.   \n \t", Calculo_ERRO_NOS(a,b,lambda,n),Calculo_ERRO(a,b,lambda,n)/(h*h) );
+                    printf("\n \n A respeito da an√°lise em y_i, o erro cometido √©: %e. E ERRO/h^2 = %e.   \n \t", Calculo_ERRO(a,b,lambda,n),Calculo_ERRO(a,b,lambda,n)/(h*h) );
+                    printf("\n \n A respeito da an√°lise nos n√≥s, o erro cometido √©: %e. E ERRO/h^2 = %e.   \n \t", Calculo_ERRO_NOS(a,b,lambda,n),Calculo_ERRO(a,b,lambda,n)/(h*h) );
 
 
                     break;
                 case 2: a=0.0; b=1.0; lambda=0.0;
                     printf("                               +----------------------------------------------------------+\n");
-                    printf("                               |                         An·lise em y_i*                  |\n");
+                    printf("                               |                         An√°lise em y_i*                  |\n");
                     printf("                               +-----+----------+------------------------+----------------+\n");
                     printf("                               |  n  | h        |        Erro            |   Erro/h^2     | \n");
                     printf("                               +-----+----------+-----------------------------------------+\n");
@@ -545,12 +544,12 @@ int main()
                         fprintf(arqERRO_h, "%lf, %lf\n", 1/pow(2,4+i), log10(error[i]));
                     }
                     fclose(arqERRO_h);//fecho o arquivo.
-                    printf(" *Veja que constatamos ent„o a convergÍncia de segunda ordem com o uso dos splines lineares.\n\n\n");
+                    printf(" *Veja que constatamos ent√£o a converg√™ncia de segunda ordem com o uso dos splines lineares.\n\n\n");
 
 
 
                     printf("                               +-----------------------------------------+\n");
-                    printf("                               |              An·lise nos nÛs**          |\n");
+                    printf("                               |              An√°lise nos n√≥s**          |\n");
                     printf("                               +-----+----------+------------------------+\n");
                     printf("                               |  n  | h        |        Erro            | \n");
                     printf("                               +-----+----------+------------------------+\n");
@@ -566,7 +565,7 @@ int main()
                         AUX=AUX*2+1;
                     }
 
-                    printf(" **Como o mÈtodo c·lcula a soluÁ„o exatamente nos nÛs, ent„o o erro observado È muito pequeno e È devido aos erros de arredondamento. \n\n" );
+                    printf(" **Como o m√©todo c√°lcula a solu√ß√£o exatamente nos n√≥s, ent√£o o erro observado √© muito pequeno e √© devido aos erros de arredondamento. \n\n" );
 
 
 
@@ -574,10 +573,10 @@ int main()
 
                     break;
                 default:
-                    printf("\n\n  OpÁ„o inv·lida. \n\n");
+                    printf("\n\n  Op√ß√£o inv√°lida. \n\n");
 
             }
-        }while(OPCAO_n !=1 && OPCAO_n != 2 );// Para que o usu·rio escolha uma das opÁıes
+        }while(OPCAO_n !=1 && OPCAO_n != 2 );// Para que o usu√°rio escolha uma das op√ß√µes
 
 
 
@@ -585,7 +584,7 @@ int main()
     printf("   \n\n   Digite 1 para permanecer no progrma e outro valor para sair. \n\n \t");
     scanf("%d", & codigoAcao);
 
-    } while(codigoAcao ==1); // para que se retorne as opÁıes atÈ que o usuario digite a opÁ„o 4.
+    } while(codigoAcao ==1); // para que se retorne as op√ß√µes at√© que o usuario digite a op√ß√£o 4.
 
     return 0;
 }
